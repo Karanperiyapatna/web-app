@@ -1,0 +1,44 @@
+/* Full-width header */
+.dashboard-header {
+    width: 100%;
+    background: #3498db;  /* Blue background for better contrast */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Welcome message */
+.dashboard-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* Fix Logout button width issue */
+.logout-button {
+    background-color: white;
+    color: #3498db;
+    border: 2px solid white;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    
+    /* Ensure button does not expand full width */
+    display: inline-block; 
+    width: auto; 
+
+        /* Move button slightly inward */
+    margin-right: 40px;  
+}
+
+.logout-button:hover {
+    background-color: #2980b9;
+    color: white;
+    border-color: #2980b9;
+}

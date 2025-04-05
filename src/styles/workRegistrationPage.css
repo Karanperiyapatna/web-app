@@ -1,0 +1,24 @@
+.find-worker-container, .container-findworker {
+  border: 1px solid #000;
+  padding: 20px;
+  margin: 20px;
+}
+
+.image-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.image-button {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}

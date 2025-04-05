@@ -1,0 +1,15 @@
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.chatbot-content {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.chatbot-options button {
+    width: 100%;
+    margin-bottom: 10px;
+}
