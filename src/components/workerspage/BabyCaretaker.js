@@ -16,16 +16,20 @@ const BabyCaretaker = () => {
 
 
 	const [formData, setFormData] = useState({
-		username :"",
+		name :"",
 		mobilenumber : "",
+		alternative_mobile_number :"",
+
 		email : "",
 		address : "",
+		pincode:"", 
 		city: "",
 		area: "",
 		language : "",
 
 		age: "",
 		gender: "",
+		preferredCareTime : "",
 		baby_care_tasks :[],
 		additionalNotes :"",
 		salaryOffered : "",
@@ -192,18 +196,32 @@ const BabyCaretaker = () => {
 
 				<div className="mb-3">
 					<label className="form-label">Mobile Number:</label>
-					<input type="number" className="form-control" name="mobilenumber" value={formData.mobilenumber} onChange={handleUserDetailsChange} required />
+					<input type="number" className="form-control" name="mobilenumber" value={formData.mobilenumber} onChange={handleUserDetailsChange}  pattern="\d{10}" minLength="10" maxLength="10"
+						title="Please enter a 10-digit mobile number"required />
+				</div>
+				<div className="mb-3">
+					<label className="form-label">Alternative Mobile Number:</label>
+					<input type="number" className="form-control" name="alternative_mobile_number" value={formData.alternative_mobile_number} onChange={handleUserDetailsChange}     pattern="\d{10}"
+					minLength="10" maxLength="10" title="Please enter a 10-digit mobile number"
+					required />
 				</div>
 
 				<div className="mb-3">
 					<label className="form-label">Email:</label>
-					<input type="text" className="form-control" name="email" value={formData.email} onChange={handleUserDetailsChange} required />
+					<input type="text" className="form-control" name="email" value={formData.email} onChange={handleUserDetailsChange}     pattern="^[^@]+@[^@]+$" title="Email must contain exactly one '@' symbol" required />
 				</div>
 
 				<div className="mb-3">
 					<label className="form-label">Address:</label>
 					<input type="text" className="form-control" name="address" value={formData.address} onChange={handleUserDetailsChange} required />
 				</div>
+
+				<div className="mb-3">
+					<label className="form-label">Pincode:</label>
+					<input type="text" className="form-control" name="pincode" value={formData.pincode} onChange={handleUserDetailsChange} required />
+				</div>
+
+				<h4 className="text-secondary mt-4 mb-3">Service Requirements</h4>
 
 				<div className="mb-3">
 					<label className="form-label">City:</label>
@@ -229,11 +247,10 @@ const BabyCaretaker = () => {
 					<label className="form-label">Preferences Language:</label>
 					<input type="text" className="form-control" name="language" placeholder="Hindi, English, Kannada etc" value={formData.language} onChange={handleFormChange} required />
 				</div>
-
-				<h5 className="text-secondary mt-4 mb-3">Child Details</h5>
+				
 				<div className="mb-3">
 					<label className="form-label">Child Age:</label>
-					<input type="number" className="form-control" name="age" value={formData.age} onChange={handleUserDetailsChange} required />
+					<input type="number" className="form-control" name="age" value={formData.age} onChange={handleUserDetailsChange}   required />
 				</div>
 
 				<div className="mb-3">
@@ -244,6 +261,35 @@ const BabyCaretaker = () => {
 						<option value="Female">Female</option>
 						<option value="Others">Others</option>
 					</select>
+				</div>
+
+				
+				<div className="mb-3">
+					<label className="form-label">Preferred Priority:</label>
+					<select className="form-select" name="urgencyStatus" value={formData.urgencyStatus} onChange={handleFormChange} required>
+						<option value="">Select</option>
+						<option value="immediate">Immediate</option>
+						<option value="within_1_week">Within 1 Week</option>
+						<option value="just_enquiry">Just Enquiry</option>
+					</select>
+				</div>
+
+				<div className="mb-3">
+					<label className="form-label">Preferred Care Time:</label>
+					<select className="form-select" name="preferredCareTime" value={formData.preferredCareTime} onChange={handleFormChange} required>
+						<option value="">Select</option>
+						<option value="morning_shift">Morning - 6am to 10am</option>
+						<option value="evening_shift">Evening - 5pm to 9pm</option>
+						<option value="partial_shift">Partial 12hrs</option>
+						<option value="full_shift">Full Time 24hrs</option>
+					</select>
+				</div>
+
+				<div className="mb-3">
+					<label className="form-label">Preferred Duration:</label>
+					<input
+						type="text" className="form-control" name="requiredDuration" placeholder="In Months"
+						value={formData.duration} onChange={handleFormChange} required />
 				</div>
 
 				<h4 className="text-secondary mt-4 mb-3">Baby Care Tasks</h4>
@@ -273,63 +319,17 @@ const BabyCaretaker = () => {
 					</div>
 				</div>
 
-				<h4 className="text-secondary mt-4 mb-3">Service Requirements</h4>
-				<div className="mb-3">
-					<label className="form-label">Urgency:</label>
-					<select className="form-select" name="urgencyStatus" value={formData.urgencyStatus} onChange={handleFormChange} required>
-						<option value="">Select</option>
-						<option value="immediate">Immediate</option>
-						<option value="within_1_week">Within 1 Week</option>
-						<option value="just_enquiry">Just Enquiry</option>
-					</select>
-				</div>
-
-				<div className="mb-3">
-					<label className="form-label">Preferred Care Time:</label>
-					<select className="form-select" name="preferredCareTime" value={formData.preferredCareTime} onChange={handleFormChange} required>
-						<option value="">Select</option>
-						<option value="morning_shift">Morning - 6am to 10am</option>
-						<option value="evening_shift">Evening - 5pm to 9pm</option>
-						<option value="partial_shift">Partial 12hrs</option>
-						<option value="full_shift">Full Time 24hrs</option>
-					</select>
-				</div>
-
-				<div className="mb-3">
-					<label className="form-label">Duration:</label>
-					<input
-						type="text"
-						className="form-control"
-						name="requiredDuration"
-						placeholder="In Months"
-						value={formData.duration}
-						onChange={handleFormChange}
-						required
-					/>
-				</div>
-
 				<div className="mb-3">
 					<label className="form-label">Additional Notes:</label>
-					<textarea
-						className="form-control"
-						name="additionalNotes"
-						placeholder="Enter any specific requirements..."
-						value={formData.additionalNotes}
-						onChange={handleFormChange}
-					/>
+					<textarea className="form-control" name="additionalNotes" placeholder="Enter any specific requirements..."
+						value={formData.additionalNotes} onChange={handleFormChange} />
 				</div>
 
 				<div className="mb-3">
 					<label className="form-label">Salary Offer:</label>
 					<input
-						type="text"
-						className="form-control"
-						name="salaryOffered"
-						placeholder="Per Month Ex. 1000rs/month"
-						value={formData.salaryOffered}
-						onChange={handleFormChange}
-						required
-					/>
+						type="text" className="form-control" name="salaryOffered" placeholder="Per Month Ex. 1000rs/month"
+						value={formData.salaryOffered} onChange={handleFormChange} required />
 				</div>
 
 				<button type="submit" className="btn btn-primary w-100 mt-4">Submit</button>

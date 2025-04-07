@@ -7,13 +7,19 @@ import './styles/main.css';
 import './styles/Footer.css';
 import './styles/Header.css';
 
-
+// Import the Images
+import babycaretaker from '../src/images/main/babycaretaker.jpg';
+import eldercaretaker from '../src/images/main/eldercaretaker.jpg';
+import cleaner from '../src/images/main/cleaner.jpg';
+import cooking from '../src/images/main/cooking.jpg';
+import otherservice from '../src/images/main/otherservices.jpg';
 
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Signup from './components/Signup';
-import Login from './components/Login';
+
+import AboutUs from './components/AboutUs';
+import ContactUs from './components/ContactUs';
 import UnderMaintenance from './components/under-maintenance';
 
 import Userpage from './components/Userpage';
@@ -25,27 +31,23 @@ import LabourPage from './components/LabourPage';
 import LabourLogin from './components/labour/LabourLogin';
 import LabourSignup from './components/labour/LabourSignup';
 import LabourDashboard from './components/labour/LabourDashboard';
+import LabourList from "./components/LabourList";
 
 import AgentLogin from './components/agent/AgentLogin';
 import AgentSignup from './components/agent/AgentSignup';
 import AgentDashboard from './components/agent/AgentDashboard';
-
-import CbLogin from './components/cb/CbLogin';
-import CbSignup from './components/cb/CbSignup';
-
-import AboutUs from './components/AboutUs';
-import ContactUs from './components/ContactUs';
+import AgentRegistrationPage from './components/AgentRegistrationPage';
 
 import LegalInformation from './components/LegalInformation';
-import Chatbot from './components/Chatbot';
 import Subscription from './components/Subscription';
+import Chatbot from './components/Chatbot';
 
 
-import AgentRegistrationPage from './components/AgentRegistrationPage';
 
 import SleepingPartnerPage from './components/SleepingPartnerPage';
 import OtherServices from './components/OtherServices';
 
+// {/* <!-------------------------------------------------------------------- User's Requirements Page --> */}
 import BabyCaretaker from './components/workerspage/BabyCaretaker';
 import ElderCare from './components/workerspage/ElderCare';
 import Cooking from './components/workerspage/Cooking';
@@ -62,8 +64,7 @@ import CarDriver from './components/workerspage/CarDriver';
 import PackersMovers from './components/workerspage/PackersMovers';
 import PlumberService from './components/workerspage/PlumberService';
 
-
-
+// {/* <!-------------------------------------------------------------------- Employee's Registration Page --> */}
 import EmpBabyCaretaker from './components/workerspage/EmpBabyCaretaker';
 import EmpElderCare from './components/workerspage/EmpElderCare';
 import EmpCooking from './components/workerspage/EmpCooking';
@@ -73,30 +74,6 @@ import EmpDriver from './components/workerspage/EmpDriver';
 import EmpOtherservice from './components/workerspage/EmpOtherservice';
 import EmpLogistics from './components/workerspage/EmpLogistics';
 import EmpHelper from './components/workerspage/EmpHelper';
-
-
-import LabourList from "./components/LabourList";
-
-// import EmpBabyCaretaker from './components/looking_job/EmpBabyCaretaker';
-
-import babycaretaker from '../src/images/main/babycaretaker.jpg';
-import eldercaretaker from '../src/images/main/eldercaretaker.jpg';
-import cleaner from '../src/images/main/cleaner.jpg';
-import cooking from '../src/images/main/cooking.jpg';
-import acRepair from '../src/images/main/electrical.jpg';
-import painter from '../src/images/main/painter.jpg';
-import gardening from '../src/images/main/gardening.jpg';
-import industryHelper from '../src/images/main/industrail_helper.jpg';
-import officeCleaner from '../src/images/main/office_cleaner.jpg';
-import constructionHelper from '../src/images/main/construction.jpg';
-import tankcleaner from '../src/images/main/cooking.jpg';
-import otherservice from '../src/images/main/otherservices.jpg';
-import cardriver from '../src/images/main/cardriver.jpg';
-
-import feedback_01 from '../src/images/main/feedback/feedback_01.jpg'
-import feedback_02 from '../src/images/main/feedback/feedback_02.jpg'
-import feedback_03 from '../src/images/main/feedback/feedback_03.jpg'
-
 
 
 function HomePageContent() {
@@ -113,23 +90,21 @@ function HomePageContent() {
 
 			<div className="">
 
-				<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-							rel="stylesheet" />
-
+				<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet" />
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+				<link rel="stylesheet" href="/css/bootstrap.min.css" />	
 
-				<link rel="stylesheet" href="/css/bootstrap.min.css" />		
-				{/* <!-- Bootstrap CSS --> */}
+ 				{/* <!-- Bootstrap CSS --> */}
 				<link rel="stylesheet" href="css/bootstrap.min.css" />
 				{/* <!-- Nice Select CSS --> */}
-				<link rel="stylesheet" href="css/nice-select.css" />
+				<link rel="stylesheet" href="css/nice-select.css" /> 
 				{/* <!-- Font Awesome CSS --> */}
 				<link rel="stylesheet" href="css/font-awesome.min.css" />
-				{/* <!-- icofont CSS --> */}
-				<link rel="stylesheet" href="css/icofont.css" />
+				{/* <!-- icofont CSS --> */}	
+				<link rel="stylesheet" href="css/icofont.css" />	
 	
 
-				{/* <!-- Preloader --> */}
+				{/* <!----------------------------------------------------------------------- Preloader --> */}
 				<div class="preloader">
 					<div class="loader">
 						<div class="loader-outter"></div>
@@ -143,49 +118,27 @@ function HomePageContent() {
 						</div> */}
 					</div>
 				</div>
-
-
-
-
-
-									
+						
 
 				{/* <!-- Pricing Table --> */}
 				<section class="pricing-table section">
 						<div class="container">
 
 							<div className="container-fluid" 
-								style={{ 
-									backgroundImage: "url('/img/slider6.jpg')", 
-									backgroundRepeat: "no-repeat", 
-									backgroundPosition: "center", 
-									backgroundSize: "cover", 
-									minHeight: "50vh", 
-									width: "100%", 
-									display: "flex", 
-									flexDirection: "column",
-									alignItems: "center",
-									justifyContent: "center",
-									position: "relative",
-									padding: "20px 30px"
+								style={{  backgroundImage: "url('/img/slider6.jpg')",  
+									backgroundRepeat: "no-repeat",  backgroundPosition: "center", 
+									backgroundSize: "cover",  minHeight: "50vh", 
+									width: "100%", display: "flex", flexDirection: "column", alignItems: "center", 
+									justifyContent: "center", position: "relative", padding: "20px 30px"
 								}}
 							>
 								{/* Dark Overlay for better text visibility */}
-								<div   style={{
-									position: "absolute",
-									top: 0,
-									left: 0,
-									right: 0,
-									bottom: 0,
-									width: "100%",
-									height: "100%", // Ensure it covers the full section
+								<div   style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+									width: "100%", height: "100%", // Ensure it covers the full section
 									backgroundImage: "url('/img/slider6.jpg')", // Ensure the correct path
-									backgroundRepeat: "no-repeat",
-									backgroundPosition: "center",
-									backgroundSize: "cover",
+									backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "cover",
 									backgroundColor: "rgba(193, 235, 240, 0.5)", // Light blue overlay
-									backgroundBlendMode: "overlay",
-									zIndex: "-1", // Ensure it stays behind other content
+									backgroundBlendMode: "overlay", zIndex: "-1", // Ensure it stays behind other content
 								}}
 								></div>
 
@@ -267,16 +220,13 @@ function HomePageContent() {
 								</div>
 							</div>
 
-
-
-
 							<div class="row">
 
-																{/* <!-- Single Table --> */}
-																<div class="col-lg-4 col-md-12 col-12">
-									<div class="single-table">
-										{/* <!-- Table Head --> */}
-										<div class="table-head">
+								{/* <!-- Single Table --> */}
+								<div class="col-lg-4 col-md-12 col-12">
+								<div class="single-table">
+									{/* <!-- Table Head --> */}
+									<div class="table-head">
 										<div className="icon">
 											{/* Replace the icon with an image and use inline styles */}
 											<img
@@ -290,40 +240,41 @@ function HomePageContent() {
 												}}
 											/>
 										</div>
-											<h4 class="title">Baby Caretaker</h4>
-											<h3 class="title">Starting Price @</h3>
-											<div class="price">
-												<p class="amount">299rs<span>/ Per Service</span></p>
-											</div>	
-										</div>
-										{/* <!-- Table List --> */}
-										<ul class="table-list">
-											<li><i class="icofont icofont-ui-check"></i>Infant & Toddler Care</li>
-											<li><i class="icofont icofont-ui-check"></i>Feeding & Meal Preparation</li>
-											<li><i class="icofont icofont-ui-check"></i>Diaper Changing & Hygiene</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Overnight Babysitting</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Special Needs Childcare</li>
-										</ul>							
-										<div className="table-bottom">
-											<a
-												className="btn"
-												href="/BabyCaretaker"
-												style={{
-												color: 'white', // Text color
-												backgroundColor:  "#1a76d1", // Default background color
-												textDecoration: 'none', // Remove underline
-												padding: '10px 20px', // Padding around the button
-												borderRadius: '5px', // Rounded corners
-												display: 'inline-block', // Make it a block element
-												transition: 'background-color 0.3s ease', // Smooth transition for hover
-												}}
-												onMouseEnter={(e) => (e.target.style.backgroundColor = 'darkblue')} 
-												onMouseLeave={(e) => (e.target.style.backgroundColor = "#1a76d1")} 	>
-												Hire Now
-											</a>
-										</div>
-										{/* <!-- Table Bottom --> */}
+										<h4 class="title">Baby Caretaker</h4>
+										<h3 class="title">Starting Price @</h3>
+										<div class="price">
+											<p class="amount">299rs<span>/ Per Service</span></p>
+										</div>	
 									</div>
+
+									{/* <!-- Table List --> */}
+									<ul class="table-list">
+										<li><i class="icofont icofont-ui-check"></i>Infant & Toddler Care</li>
+										<li><i class="icofont icofont-ui-check"></i>Feeding & Meal Preparation</li>
+										<li><i class="icofont icofont-ui-check"></i>Diaper Changing & Hygiene</li>
+										<li class="cross"><i class="icofont icofont-ui-close"></i>Overnight Babysitting</li>
+										<li class="cross"><i class="icofont icofont-ui-close"></i>Special Needs Childcare</li>
+									</ul>							
+									<div className="table-bottom">
+										<a
+											className="btn"
+											href="/BabyCaretaker"
+											style={{
+											color: 'white', // Text color
+														backgroundColor:  "#1a76d1", // Default background color
+											textDecoration: 'none', // Remove underline
+											padding: '10px 20px', // Padding around the button
+											borderRadius: '5px', // Rounded corners
+											display: 'inline-block', // Make it a block element
+											transition: 'background-color 0.3s ease', // Smooth transition for hover
+											}}
+											onMouseEnter={(e) => (e.target.style.backgroundColor = 'darkblue')} 
+											onMouseLeave={(e) => (e.target.style.backgroundColor = "#1a76d1")} 	>
+											Hire Now
+										</a>
+									</div>
+									{/* <!-- Table Bottom --> */}
+								</div>
 								</div>
 								{/* <!-- End Single Table--> */}
 
@@ -337,7 +288,7 @@ function HomePageContent() {
 											{/* Replace the icon with an image and use inline styles */}
 											<img
 												src={cooking}
-												alt="Cooking"
+												alt="cooking"
 												style={{
 												width: '175px', // Set the width of the image
 												height: '175px', // Set the height of the image
@@ -345,6 +296,7 @@ function HomePageContent() {
 												borderRadius: '10px', // Add rounded corners (optional)
 												}}
 											/>
+
 										</div>
 											<h4 class="title">Cooking</h4>
 											<h3 class="title">Starting Price @</h3>
@@ -364,11 +316,7 @@ function HomePageContent() {
 											
 										</ul>
 										<div className="table-bottom">
-											<a
-												className="btn"
-												href="/Cooking"
-												style={{
-												color: 'white', // Text color
+											<a className="btn" href="/Cooking" style={{ color: 'white', // Text color
 												backgroundColor: "#1a76d1", // Default background color
 												textDecoration: 'none', // Remove underline
 												padding: '10px 20px', // Padding around the button
@@ -394,14 +342,9 @@ function HomePageContent() {
 										<div class="table-head">
 										<div className="icon">
 											{/* Replace the icon with an image and use inline styles */}
-											<img src={eldercaretaker}
-												alt="Elder Caretaker"
-												style={{
-												width: '175px', // Set the width of the image
-												height: '175px', // Set the height of the image
-												objectFit: 'cover', // Ensures the image fits within the defined dimensions
-												borderRadius: '10px', // Add rounded corners (optional)
-												}} />
+											<img src={eldercaretaker} alt="Elder Caretaker" style={{
+												width: '175px', height: '175px', objectFit: 'cover', // Ensures the image fits within the defined dimensions
+												borderRadius: '10px', }} />
 											</div>
 											<h4 class="title">Elder Caretaker</h4>
 											<h3 class="title">Starting Price @</h3>
@@ -418,8 +361,7 @@ function HomePageContent() {
 											<li class="cross"><i class="icofont icofont-ui-close"></i>Certified Nursing Assistants</li>
 										</ul>
 										<div className="table-bottom">
-											<a
-												className="btn"
+											<a className="btn"
 												href="/ElderCare"
 												style={{
 												color: 'white', // Text color
@@ -531,8 +473,7 @@ function HomePageContent() {
 											<li><i class="icofont icofont-ui-check"></i>Long-Distance Relocation</li>
 										</ul>
 										<div className="table-bottom">
-											<a
-												className="btn"
+											<a  className="btn"
 												href="/Helper"
 												style={{
 												color: 'white', // Text color
@@ -609,8 +550,8 @@ function HomePageContent() {
 								{/* <!-- End Single Table--> */}
 							</div>	
 						</div>	
-					</section>	
-					{/* <!--/ End Pricing Table --> */}
+				</section>	
+				{/* <!--/ End Pricing Table --> */}
 
 
 
@@ -676,8 +617,6 @@ function App() {
 				<Routes>
 
 					{/* <Route path="/" element={<h2>Home Content</h2>} /> */}
-					<Route path="/signup" element={<Signup />} />
-					<Route path="/login" element={<Login />} />
 					<Route path="/about_us" element={<AboutUs />} />
 					<Route path="/contact_us" element={<ContactUs />} />
 					<Route path="/LabourPage" element={<LabourPage />} />
@@ -694,8 +633,6 @@ function App() {
 					<Route path="/AgentLogin" element={<AgentLogin />} />
 					<Route path="/AgentSignup" element={<AgentSignup />} />
 					<Route path="/AgentDashboard" element={<AgentDashboard />} />
-					<Route path="/CbLogin" element={<CbLogin />} />
-					<Route path="/CbSignup" element={<CbSignup />} />
 
 					<Route path="/OtherServices" element={<OtherServices />} />
 					<Route path="/babyCaretaker" element={<BabyCaretaker />} />

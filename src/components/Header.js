@@ -133,7 +133,7 @@ function Header() {
 				<div className="row w-100">
 		  			<div className="col-lg-6 col-md-5 col-12">
 						{/* Contact Links */}
-						<ul className="top-link d-flex gap-3 list-unstyled m-0" style={{ fontSize: "14px" }} >
+						<ul className="top-link d-flex gap-3 list-unstyled m-0 fs-6" style={{ fontSize: "14px" }} >
 							<li style={{ display: "inline-block" }}>
 								<a href="/" 
 									style={{ textDecoration: "none", color: "#333" }}>Home</a>

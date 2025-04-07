@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/LabourPage.css';
 
-
 import agentsignup from '../images/agent_img/img_agentlogin03.jpg'
 import agentlogin from '../images/agent_img/img_agentlogin01.jpg'
 
@@ -17,8 +16,6 @@ function LabourPage() {
 	return (
 		
 		<div className="labour-page-container">
-
-
 		<br></br>
 		<br></br>
 		
