@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation, Navigate, useNavig
 import React, { useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+// Importing the css file to support for the APP js
 import './styles/main.css';
 import './styles/Footer.css';
 import './styles/Header.css';
