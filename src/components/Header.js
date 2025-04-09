@@ -133,7 +133,7 @@ function Header() {
 				<div className="row w-100">
 		  			<div className="col-lg-6 col-md-5 col-12">
 						{/* Contact Links */}
-						<ul className="top-link d-flex gap-3 list-unstyled m-0 fs-6" style={{ fontSize: "14px" }} >
+						<ul className="top-link d-flex gap-3 list-unstyled m-0 fs-7" style={{ fontSize: "14px" }} >
 							<li style={{ display: "inline-block" }}>
 								<a href="/" 
 									style={{ textDecoration: "none", color: "#333" }}>Home</a>
@@ -178,16 +178,10 @@ function Header() {
 											</a>
 										</li>
 										<li style={{ padding: "8px 0", borderBottom: "1px dashed #ddd" }} >
-											<a
-											href="/emp_Cooking"
-											style={{
-												textDecoration: "none",
-												color: "#444",
-												fontSize: "14px",
-												fontFamily: "Arial, sans-serif",
-											}}
-											onMouseOver={(e) => (e.target.style.color = "#000")}
-											onMouseOut={(e) => (e.target.style.color = "#444")} >
+											<a  href="/emp_Cooking"
+												style={{ textDecoration: "none", color: "#444", fontSize: "14px", fontFamily: "Arial, sans-serif", }}
+												onMouseOver={(e) => (e.target.style.color = "#000")}
+												onMouseOut={(e) => (e.target.style.color = "#444")} >
 											Cooking
 											</a>
 										</li>

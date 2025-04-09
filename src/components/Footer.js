@@ -12,11 +12,11 @@ function Footer() {
 	];
 
 	const quickLinks = [
-		{ name: "Home", link: "/home" },
+		{ name: "Home", link: "/" },
 		{ name: "Services", link: "/services" },
-		{ name: "About Us", link: "/about" },
-		{ name: "Contact Us", link: "/contact" },
-		{ name: "Pricing", link: "/pricing" },
+		{ name: "About Us",  href: "https://stwebsuhas.z13.web.core.windows.net/about.html"  },
+		{ name: "Contact Us", link: "/contact_us" },
+		{ name: "Pricing", link: "/" },
 		{ name: "Labour Page", link: "/labour" },
 		{ name: "Agent Page", link: "/AgentLogin" },
 		{ name: "Demand Page", link: "/demand" },
@@ -29,9 +29,9 @@ function Footer() {
 			<div className="container">
 				<div className="row">
 					{/* About Us Section */}
-					<div className="col-lg-4 col-md-6">
-						<h4 class="text-white fs-3">About Us</h4>  {/* Bigger Heading */}
-						<p className="fs-6 text-white">
+					<div className="col-lg-4 col-md-7">
+						<h4 class="text-white fs-4">About Us</h4>  {/* Bigger Heading */}
+						<p className="fs-7 text-white">
 							We connect skilled laborers with businesses and individuals looking for reliable workforce solutions.
 							From construction to home services, we provide trusted professionals for your needs.
 						</p>
@@ -47,31 +47,37 @@ function Footer() {
 					</div>
 
 					{/* Quick Links */}
-					<div className="col-lg-4 col-md-6">
-						<h4 class="text-white fs-3">Quick Links</h4> {/* Bigger Heading fs-3 */}
+					<div className="col-lg-4 col-md-7">
+						<h4 class="text-white fs-4">Quick Links</h4> {/* Bigger Heading fs-3 */}
 						<div className="row">
 							{Array(2).fill().map((_, colIndex) => (
 								<div key={colIndex} className="col-6">
-									<ul className="list-unstyled">
-										{quickLinks
-											.filter((_, index) => index % 2 === colIndex)
-											.map((item, index) => (
-												<li key={index}>
-													<a href={item.link} className="text-white d-block fs-6">
-														<FaCaretRight /> {item.name}
-													</a>
-												</li>
-											))}
-									</ul>
+								<ul className="list-unstyled">
+									{quickLinks
+									.filter((_, index) => index % 2 === colIndex)
+									.map((item, index) => (
+										<li key={index}>
+										<a
+											href={item.href || item.link}
+											className="text-white d-block fs-7"
+											target={item.href ? "_blank" : "_self"}
+											rel={item.href ? "noopener noreferrer" : undefined}
+										>
+											<FaCaretRight /> {item.name}
+										</a>
+										</li>
+									))}
+								</ul>
 								</div>
 							))}
-						</div>
+							</div>
+
 					</div>
 
 					{/* Working Hours */}
-					<div className="col-lg-4 col-md-12">
-						<h4 class="text-white fs-3">Working Hours</h4>
-						<ul className="list-unstyled  text-white fs-6"> {/* Smaller Text */}
+					<div className="col-lg-4 col-md-7">
+						<h4 class="text-white fs-4">Working Hours</h4>
+						<ul className="list-unstyled  text-white fs-7"> {/* Smaller Text */}
 							<li>Monday - Friday: <span>10:00 AM - 5:00 PM</span></li>
 							<li>Saturday: <span>10:00 AM - 1:30 PM</span></li>
 						</ul>
@@ -86,7 +92,7 @@ function Footer() {
 			<div class="col-lg-12 col-md-12 col-12 text-center">
 				<div class="copyright-content">
 					{/* increase the size - higher value - small size */}
-					<p class="fs-6"> 
+					<p class="fs-7"> 
 					© Copyright 2025 | All Rights Reserved by
 					<a href="https://www.wpthemesgrid.com" target="_blank">digilaboursolution.com</a>
 					</p>

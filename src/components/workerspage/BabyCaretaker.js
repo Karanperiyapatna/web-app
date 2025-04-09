@@ -186,7 +186,7 @@ const BabyCaretaker = () => {
 
 			{isPosting ? (
 				<form className="requirement-form container my-5 p-4 border rounded shadow-sm"  onSubmit={handleSubmit}>
-					<h2 className="text-center text-primary mb-4">Post Your Requirement</h2>
+					<h2 className="text-center text-balck mb-4">Post Your Requirement</h2>
 
 				<h4 className="text-secondary mb-3">Personal Details</h4>
 				<div className="mb-3">
@@ -196,14 +196,23 @@ const BabyCaretaker = () => {
 
 				<div className="mb-3">
 					<label className="form-label">Mobile Number:</label>
-					<input type="number" className="form-control" name="mobilenumber" value={formData.mobilenumber} onChange={handleUserDetailsChange}  pattern="\d{10}" minLength="10" maxLength="10"
-						title="Please enter a 10-digit mobile number"required />
+					<input
+						type="text"
+						className="form-control"
+						name="mobilenumber"
+						value={formData.mobilenumber}
+						onChange={handleUserDetailsChange}
+						onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+						pattern="^\d{10}$"
+						maxLength="10"
+						title="Please enter a valid 10-digit mobile number"
+						required
+						/>
 				</div>
 				<div className="mb-3">
 					<label className="form-label">Alternative Mobile Number:</label>
-					<input type="number" className="form-control" name="alternative_mobile_number" value={formData.alternative_mobile_number} onChange={handleUserDetailsChange}     pattern="\d{10}"
-					minLength="10" maxLength="10" title="Please enter a 10-digit mobile number"
-					required />
+					<input type="text" className="form-control" name="alternative_mobile_number" value={formData.alternative_mobile_number} onChange={handleUserDetailsChange}   onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+						pattern="^\d{10}$" maxLength="10" title="Please enter a valid 10-digit mobile number" required />
 				</div>
 
 				<div className="mb-3">
@@ -218,7 +227,7 @@ const BabyCaretaker = () => {
 
 				<div className="mb-3">
 					<label className="form-label">Pincode:</label>
-					<input type="text" className="form-control" name="pincode" value={formData.pincode} onChange={handleUserDetailsChange} required />
+					<input type="text" className="form-control" name="pincode" value={formData.pincode} onChange={handleUserDetailsChange} pattern="\d{6}" title="Enter a valid 6-digit pincode" required />
 				</div>
 
 				<h4 className="text-secondary mt-4 mb-3">Service Requirements</h4>
@@ -250,7 +259,7 @@ const BabyCaretaker = () => {
 				
 				<div className="mb-3">
 					<label className="form-label">Child Age:</label>
-					<input type="number" className="form-control" name="age" value={formData.age} onChange={handleUserDetailsChange}   required />
+					<input type="number" className="form-control" name="age" value={formData.age} onChange={handleUserDetailsChange} min="0"  required />
 				</div>
 
 				<div className="mb-3">
@@ -304,17 +313,18 @@ const BabyCaretaker = () => {
 							"Bathing and Dressing the Baby",
 							"Monitoring Baby’s Health and Hygiene",
 						].map((task, index) => (
-							<div className="form-check" key={index}>
-								<label className="form-check-label">{task}</label>
+							<div className="form-check d-flex align-items-start mb-2" key={index}>
 								<input
-									className="form-check-input"
+									className="form-check-input  me-3 mt-0"
 									type="checkbox"
 									value={task}
 									checked={formData.baby_care_tasks.includes(task)}
 									onChange={handleCheckboxChange}
+									style={{ minWidth: "18px", minHeight: "18px" }}
 								/>
-								
+								<label className="form-check-label">{task}</label>
 							</div>
+
 						))}
 					</div>
 				</div>
@@ -328,8 +338,8 @@ const BabyCaretaker = () => {
 				<div className="mb-3">
 					<label className="form-label">Salary Offer:</label>
 					<input
-						type="text" className="form-control" name="salaryOffered" placeholder="Per Month Ex. 1000rs/month"
-						value={formData.salaryOffered} onChange={handleFormChange} required />
+						type="text" className="form-control" name="salaryOffered" placeholder="Per Month Ex. 1000rs/month" 
+						value={formData.salaryOffered} onChange={handleFormChange} title="Enter a valid salary e.g. 10000 rs/month" required />
 				</div>
 
 				<button type="submit" className="btn btn-primary w-100 mt-4">Submit</button>
@@ -340,10 +350,10 @@ const BabyCaretaker = () => {
 								<h3>Enter Your Details</h3>
 								<h4>Personal Details</h4>
 								<label>	Name:
-									<input type="text" name="username" value={formData.username} onChange={handleUserDetailsChange} required />
+									<input type="text" name="username" value={formData.username} onChange={handleUserDetailsChange} pattern="^\d{10}$" title="Please enter a valid 10-digit mobile number" required />
 								</label>
 								<label> Mobile Number:
-									<input type="text" name="mobile" value={formData.mobile} onChange={handleUserDetailsChange} required />
+									<input type="text" name="mobile" value={formData.mobile} onChange={handleUserDetailsChange}  pattern="^\d{10}$" title="Please enter a valid 10-digit mobile number" required />
 								</label>
 								<label> Email:
 									<input type="text" name="email" value={formData.email} onChange={handleUserDetailsChange} required />
