@@ -76,7 +76,8 @@ const EmpHelper = () => {
 		});
 
 		try {
-			const response = await axios.post("http://127.0.0.1:8000/api/employees/helper/", data, {
+			const response = await axios.post(
+				`${process.env.API_BASE_URL}/api/employees/helper/`, data, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},

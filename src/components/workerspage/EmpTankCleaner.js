@@ -69,7 +69,7 @@ const EmpTankcleaner = () => {
 	
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/EmpTankcleaner/',
+				`${process.env.API_BASE_URL}/api/EmpTankcleaner/`,
 				data,
 				{
 					headers: {

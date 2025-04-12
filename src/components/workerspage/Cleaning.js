@@ -102,7 +102,8 @@ const Cleaner = () => {
 				work_category: "cleaner" 
 			};
 			
-			const response = await fetch("http://127.0.0.1:8000/api/search/labour-cleaner/", {
+			const response = await fetch(
+				`${process.env.API_BASE_URL}/api/search/labour-cleaner/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -135,7 +136,7 @@ const Cleaner = () => {
 
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/requirements/cleaner/', // Django API URL
+				`${process.env.API_BASE_URL}/api/requirements/cleaner/`, // Django API URL
 				data,
 				{
 					headers: {

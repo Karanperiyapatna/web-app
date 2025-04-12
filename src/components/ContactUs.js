@@ -9,7 +9,8 @@ function ContactUs() {
 
 	const handleContact = async (e) => {
 		e.preventDefault();
-		const response = await fetch('http://localhost:5000/contact_us', {
+		const response = await fetch(
+			`${process.env.API_BASE_URL}/contact_us`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ name, mobile, email, message }),

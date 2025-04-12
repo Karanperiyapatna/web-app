@@ -71,7 +71,7 @@ const EmpOtherservice = () => {
 	
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/employees/labour-otherservice/',
+				`${process.env.API_BASE_URL}/api/employees/labour-otherservice/`,
 				data,
 				{
 					headers: {

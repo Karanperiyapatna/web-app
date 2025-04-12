@@ -107,7 +107,8 @@ const ElderCaretaker = () => {
 				work_category: "eldercaretaker" // Add work_category field with default value
 			};
 			
-			const response = await fetch("http://127.0.0.1:8000/api/search/labour-eldercaretaker/", {
+			const response = await fetch(
+				`${process.env.API_BASE_URL}/api/search/labour-eldercaretaker/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -147,7 +148,7 @@ const ElderCaretaker = () => {
 
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/requirements/elder-caretaker/',// Django API URL
+				`${process.env.API_BASE_URL}/api/requirements/elder-caretaker/`,// Django API URL
 				data,
 				{
 					headers: {

@@ -71,7 +71,7 @@ const EmpDriver = () => {
 
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/EmpDriver/',// Django API URL
+				`${process.env.API_BASE_URL}/api/EmpDriver/`,// Django API URL
 				// '
 				data,
 				{

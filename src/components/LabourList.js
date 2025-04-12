@@ -30,7 +30,8 @@ const LabourList = () => {
 				...userDetails,
 				work_category: work_category 
 			};
-			const response = await fetch("http://127.0.0.1:8000/api/storeCustomerData/", {
+			const response = await fetch(
+				`${process.env.API_BASE_URL}/api/storeCustomerData/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"

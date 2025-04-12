@@ -5,7 +5,8 @@ const Payment = () => {
 	const handlePayment = async () => {
 		try {
 			// Create order on the backend
-			const response = await axios.post('http://localhost:8000/create-order/', { amount: 500 });
+			const response = await axios.post(
+				`${process.env.API_BASE_URL}/create-order/`, { amount: 500 });
 			const { order_id, amount, currency } = response.data;
 
 			const options = {
@@ -23,7 +24,8 @@ const Payment = () => {
 					};
 
 					// Verify payment
-					const verifyRes = await axios.post("http://localhost:8000/verify-payment/", paymentData);
+					const verifyRes = await axios.post(
+						`${process.env.API_BASE_URL}/verify-payment/`, paymentData);
 					alert(verifyRes.data.status);
 				},
 				prefill: {

@@ -105,7 +105,8 @@ const Cooking = () => {
 				work_category: "cooking" // Add work_category field with default value
 			};
 	
-			const response = await fetch("http://127.0.0.1:8000/api/search/labour-cook/", {
+			const response = await fetch(
+				`${process.env.API_BASE_URL}/api/search/labour-cook/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -138,7 +139,7 @@ const Cooking = () => {
 	
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/requirements/cooking/',
+				`${process.env.API_BASE_URL}/api/requirements/cooking/`,
 				data,
 				{
 					headers: {

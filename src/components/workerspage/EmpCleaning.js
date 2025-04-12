@@ -69,7 +69,7 @@ const EmpCleaner = () => {
 	
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:8000/api/employees/labour-cleaner/',
+				`${process.env.API_BASE_URL}/api/employees/labour-cleaner/`,
 				data,
 				{
 					headers: {

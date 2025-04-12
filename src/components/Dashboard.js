@@ -6,7 +6,8 @@ function Dashboard() {
 	const [activeTab, setActiveTab] = useState('orders');
 
 	useEffect(() => {
-		fetch('http://localhost:5000/api/dashboard')
+		fetch(
+			`${process.env.API_BASE_URL}/api/dashboard`)
 			.then(response => response.json())
 			.then(data => setUsers(data))
 			.catch(error => console.error('Error:', error));

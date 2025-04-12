@@ -41,7 +41,8 @@ function WorkerRegistrationPage() {
 		const form = new FormData();
 		Object.entries(formData).forEach(([key, value]) => form.append(key, value));
 		try {
-			const response = await fetch("http://localhost:8000/api/agent/agent-signup/", {
+			const response = await fetch(
+				`${process.env.API_BASE_URL}/api/agent/agent-signup/`, {
 				method: "POST",
 				body: form,
 			});
@@ -68,7 +69,8 @@ function WorkerRegistrationPage() {
 	const handleLoginSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await fetch("http://localhost:8000/api/agent/agent-login/", {
+			const response = await fetch(
+				`${process.env.API_BASE_URL}/api/agent/agent-login/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(loginData),
