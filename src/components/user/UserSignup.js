@@ -2,92 +2,213 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function UserSignup() {
-	const [name, setName] = useState('');
-	const [mobilenumber, setMobileNumber] = useState('');
-	const [alternativemobilenumber, setAlternativeMobileNumber] = useState('');
-	const [mailid, setMailID] = useState('');
-	const [address, setAddress] = useState('');
-	const [city, setCity] = useState('');
-	const [area, setArea] = useState('');
-	const [pincode, setPincode] = useState('');
-	const [state, setState] = useState('');
-	const [password, setPassword] = useState('');
+	const [formData, setFormData] = useState({
+		name: '',
+		mobile_number: '',
+		alt_mobile_number: '',
+		email: '',
+		address: '',
+		city: '',
+		area: '',
+		state: '',
+		pincode: '',
+		username :'',
+		password: '',
+		agreeTerms : '',
+	});
+	const [agreeTerms, setAgreeTerms] = useState(false);
+	const [errors, setErrors] = useState({});
 	const navigate = useNavigate();
 
-	// Area options based on the selected city
+	// Area options based on city
 	const areaOptions = {
 		mysore: ['JP Nagar', 'Vijayanagar', 'Gokulam'],
 		bangalore: ['Whitefield', 'Indiranagar', 'Jayanagar'],
-		chennai: ['Anna Nagar', 'T. Nagar', 'Velachery']
+		chennai: ['Anna Nagar', 'T. Nagar', 'Velachery'],
 	};
 
-	const handleSignup = async (e) => {
+	const handleChange = (e) => {
+		const { name, value, type, checked } = e.target;
+	
+		// Handle checkbox separately
+		if (type === 'checkbox') {
+			setAgreeTerms(checked);
+			setFormData({ ...formData, [name]: checked }); // Update formData for agreeTerms
+		} else {
+			setFormData({ ...formData, [name]: value });
+		}
+	
+		// Clear error on change
+		if (errors[name]) {
+			setErrors({ ...errors, [name]: '' });
+		}
+	};
+	
+
+	const validateForm = () => {
+		const newErrors = {};
+		if (!formData.name.trim()) newErrors.name = 'Name is required';
+		if (!/^\d{10}$/.test(formData.mobile_number)) newErrors.mobile_number = 'Enter valid 10-digit number';
+		if (!/^\d{10}$/.test(formData.alt_mobile_number)) newErrors.alt_mobile_number = 'Enter valid 10-digit number';
+		if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email format';
+		if (!formData.address.trim()) newErrors.address = 'Address is required';
+		if (!formData.city) newErrors.city = 'City is required';
+		if (!formData.area) newErrors.area = 'Area is required';
+		if (!formData.state.trim()) newErrors.state = 'State is required';
+		if (!/^\d{6}$/.test(formData.pincode)) newErrors.pincode = 'Enter valid 6-digit pincode';
+		if (!formData.password || formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+		if (!agreeTerms) newErrors.terms = 'You must agree to Terms & Conditions';
+		setErrors(newErrors);
+		return Object.keys(newErrors).length === 0;
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const formData = new FormData();
-		formData.append('name', name);
-		formData.append('mobile_number', mobilenumber);
-		formData.append('alt_mobile_number', alternativemobilenumber);
-		formData.append('email', mailid);
-		formData.append('address', address);
-		formData.append('city', city);
-		formData.append('area', area);
-		formData.append('state', state);
-		formData.append('pincode', pincode);
-		formData.append('password', password);
-		
+		if (!validateForm()) return;
+	
+		// Convert boolean to string
+		const updatedFormData = {
+			...formData,
+			agreeTerms: agreeTerms ? 'true' : 'false',
+		};
+	
+		const payload = new FormData();
+		Object.entries(updatedFormData).forEach(([key, value]) => {
+			payload.append(key, value);
+		});
+	
 		try {
-			const response = await fetch('http://127.0.0.1:8000/api/user/user-signup/', {
-				method: 'POST',
-				body: formData,
-			});
-			const data = await response.json();
-			if (response.ok) {
+			const res = await fetch(
+				`${process.env.REACT_APP_API_BASE_URL}/api/user/user-signup/`,
+				{
+					method: 'POST',
+					body: payload,
+				}
+			);
+			const data = await res.json();
+			if (res.ok) {
 				alert('Signup Successful');
-				console.log('User ID:', data.user_id);
-				navigate('/UserDashboard', { state: { name: name, userId: data.user_id } });
+				navigate('/UserDashboard', {
+					state: { name: formData.name, userId: data.user_id },
+				});
 			} else {
 				alert('Signup Failed: ' + data.message);
 			}
-		} catch (error) {
-			console.error('Error:', error);
+		} catch (err) {
+			console.error('Error:', err);
 		}
 	};
+	
 
 	return (
-		<form onSubmit={handleSignup}>
-			<h2>Signup</h2>
-			<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
-			<input type="text" value={mobilenumber} onChange={(e) => setMobileNumber(e.target.value)} placeholder="Mobile Number" required />
-			<input type="text" value={alternativemobilenumber} onChange={(e) => setAlternativeMobileNumber(e.target.value)} placeholder="Alternative Mobile Number" required />
-			<input type="email" value={mailid} onChange={(e) => setMailID(e.target.value)} placeholder="Email" required />
-			<input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" required />
-			
-			{/* City Dropdown */}
+		<form className="requirement-form" onSubmit={handleSubmit}>
+			<h2>User Signup</h2>
+			<h4>Personal Details</h4>
+
+			<label>Name:
+				<input type="text" name="name" value={formData.name} onChange={handleChange} />
+				{errors.name && <span className="error">{errors.name}</span>}
+			</label>
+
+			<label>Mobile Number:
+				<input type="text" name="mobile_number" value={formData.mobile_number} onChange={handleChange} />
+				{errors.mobile_number && <span className="error">{errors.mobile_number}</span>}
+			</label>
+
+			<label>Alternative Mobile Number:
+				<input type="text" name="alt_mobile_number" value={formData.alt_mobile_number} onChange={handleChange} />
+				{errors.alt_mobile_number && <span className="error">{errors.alt_mobile_number}</span>}
+			</label>
+
+			<label>Email:
+				<input type="email" name="email" value={formData.email} onChange={handleChange} />
+				{errors.email && <span className="error">{errors.email}</span>}
+			</label>
+
+			<label>Address:
+				<input type="text" name="address" value={formData.address} onChange={handleChange} />
+				{errors.address && <span className="error">{errors.address}</span>}
+			</label>
+
 			<label>City:
-				<select value={city} onChange={(e) => {
-					setCity(e.target.value);
-					setArea(''); // Reset area when changing city
-				}} required>
+				<select name="city" value={formData.city} onChange={(e) => {
+					const selectedCity = e.target.value;
+					setFormData((prevData) => ({
+						...prevData,
+						city: selectedCity,
+						area: '', // reset area when city changes
+					}));
+					if (errors.city || errors.area) {
+						setErrors((prevErrors) => ({
+							...prevErrors,
+							city: '',
+							area: '',
+						}));
+					}
+				}}>
 					<option value="">Select City</option>
 					<option value="mysore">Mysore</option>
 					<option value="bangalore">Bangalore</option>
 					<option value="chennai">Chennai</option>
 				</select>
+				{errors.city && <span className="error">{errors.city}</span>}
 			</label>
 
-			{/* Area Dropdown (Dynamic based on city) */}
 			<label>Area:
-				<select value={area} onChange={(e) => setArea(e.target.value)} required disabled={!city}>
+				<select name="area" value={formData.area} onChange={handleChange} disabled={!formData.city}>
 					<option value="">Select Area</option>
-					{city && areaOptions[city.toLowerCase()]?.map((area) => (
-						<option key={area} value={area}>{area}</option>
-					))}
+					{formData.city &&
+						areaOptions[formData.city]?.map((area) => (
+							<option key={area} value={area}>{area}</option>
+						))
+					}
 				</select>
+				{errors.area && <span className="error">{errors.area}</span>}
 			</label>
 
-			<input type="text" value={state} onChange={(e) => setState(e.target.value)} placeholder="State" required />
-			<input type="text" value={pincode} onChange={(e) => setPincode(e.target.value)} placeholder="Pincode" required />
-			<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+			<label>State:
+				<input type="text" name="state" value={formData.state} onChange={handleChange} />
+				{errors.state && <span className="error">{errors.state}</span>}
+			</label>
+
+			<label>Pincode:
+				<input type="text" name="pincode" value={formData.pincode} onChange={handleChange} />
+				{errors.pincode && <span className="error">{errors.pincode}</span>}
+			</label>
+
+			<label>Username:
+				<input type="username" name="username" value={formData.username} onChange={handleChange} />
+				{errors.username && <span className="error">{errors.username}</span>}
+			</label>
+
+			<label>Password:
+				<input type="password" name="password" value={formData.password} onChange={handleChange} />
+				{errors.password && <span className="error">{errors.password}</span>}
+			</label>
+
+			<div className="form-check">
+			<input
+						type="checkbox"
+						className="form-check-input"
+						id="termsCheck"
+						checked={agreeTerms}
+						onChange={(e) => setAgreeTerms(e.target.checked)}
+						style={{ width: "14px", height: "14px", marginRight: "8px" }}
+					/>
+
+				<label className="form-check-label" htmlFor="termsCheck">
+					I agree to the{" "}
+					<a
+						href="http://www.digilaboursolutions.com.s3-website.ap-south-1.amazonaws.com/terms-conditions.html"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Terms and Conditions
+					</a>
+				</label>
+				{errors.terms && <span className="error">{errors.terms}</span>}
+			</div>
+
 			<button type="submit">Signup</button>
 		</form>
 	);

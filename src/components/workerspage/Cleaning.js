@@ -103,7 +103,7 @@ const Cleaner = () => {
 			};
 			
 			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/search/labour-cleaner/`, {
+				`${process.env.REACT_APP_API_BASE_URL}/api/search/labour-cleaner/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -136,7 +136,7 @@ const Cleaner = () => {
 
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/requirements/cleaner/`, // Django API URL
+				`${process.env.REACT_APP_API_BASE_URL}/api/requirements/cleaner/`, // Django API URL
 				data,
 				{
 					headers: {

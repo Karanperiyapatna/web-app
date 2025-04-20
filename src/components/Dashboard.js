@@ -7,7 +7,7 @@ function Dashboard() {
 
 	useEffect(() => {
 		fetch(
-			`${process.env.API_BASE_URL}/api/dashboard`)
+			`${process.env.REACT_APP_API_BASE_URL}/api/dashboard`)
 			.then(response => response.json())
 			.then(data => setUsers(data))
 			.catch(error => console.error('Error:', error));

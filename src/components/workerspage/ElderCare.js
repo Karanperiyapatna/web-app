@@ -88,7 +88,7 @@ const ElderCaretaker = () => {
 
 	const [searchCriteria, setSearchCriteria] = useState({
 		gender: "",
-		careLocation: "", // For city
+		city: "", // For city
 		area: "" // For area
 	});
 
@@ -108,7 +108,7 @@ const ElderCaretaker = () => {
 			};
 			
 			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/search/labour-eldercaretaker/`, {
+				`${process.env.REACT_APP_API_BASE_URL}/api/search/labour-eldercaretaker/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -148,7 +148,7 @@ const ElderCaretaker = () => {
 
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/requirements/elder-caretaker/`,// Django API URL
+				`${process.env.REACT_APP_API_BASE_URL}/api/requirements/elder-caretaker/`,// Django API URL
 				data,
 				{
 					headers: {
@@ -282,7 +282,7 @@ const ElderCaretaker = () => {
 								<input type="text" name="duration" placeholder="In Months" value={formData.duration} onChange={handleFormChange} required />
 						</label>
 						<label> City:
-							<select name="careLocation" value={formData.careLocation} onChange={handleFormChange} required>
+							<select name="city" value={formData.city} onChange={handleFormChange} required>
 								<option value="">Select City</option>
 								<option value="mysore">Mysore</option>
 								<option value="bangalore">Bangalore</option>
@@ -292,7 +292,7 @@ const ElderCaretaker = () => {
 						<label> Area:
 							<select name="area" value={formData.area} onChange={handleFormChange} required>
 								<option value="">Select Area</option>
-								{formData.careLocation && areaOptions[formData.careLocation.toLowerCase()].map((area) => (
+								{formData.city && areaOptions[formData.city.toLowerCase()].map((area) => (
 									<option key={area} value={area}>{area}</option>
 								))}
 							</select>
@@ -364,7 +364,7 @@ const ElderCaretaker = () => {
 						</select>
 					</label>
 					<label> City:
-						<select name="careLocation" value={searchCriteria.careLocation} onChange={handleFormChangeCheckLabour} required >
+						<select name="city" value={searchCriteria.city} onChange={handleFormChangeCheckLabour} required >
 							<option value="">Select City</option>
 							<option value="mysore">Mysore</option>
 							<option value="bangalore">Bangalore</option>
@@ -374,8 +374,8 @@ const ElderCaretaker = () => {
 					<label> Area:
 						<select name="area" value={searchCriteria.area} onChange={handleFormChangeCheckLabour} required >
 							<option value="">Select Area</option>
-							{searchCriteria.careLocation &&
-								areaOptions[searchCriteria.careLocation.toLowerCase()].map((area) => (
+							{searchCriteria.city &&
+								areaOptions[searchCriteria.city.toLowerCase()].map((area) => (
 									<option key={area} value={area}>
 										{area}
 									</option>

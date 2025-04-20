@@ -34,8 +34,11 @@ function LabourSignup() {
 		formData.append('password', password);
 		formData.append('address_proof', proof);
 
+
 		try {
-			const response = await fetch('http://localhost:5000/LabourSignup', {
+			const response = await fetch(
+				`${process.env.REACT_APP_API_BASE_URL}/api/labour/labour-signup`
+				, {
 				method: 'POST',
 				body: formData,
 			});
@@ -52,7 +55,7 @@ function LabourSignup() {
 
 	return (
 		<form onSubmit={handleSignup}>
-			<h2>Signup</h2>
+			<h2> Labour Signup</h2>
 			<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
 			<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="professional" required />
 			<input type="text" value={mobilenumber} onChange={(e) => setMobileNumber(e.target.value)} placeholder="Mobile Number" required />

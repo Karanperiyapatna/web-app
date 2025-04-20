@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
 	const [username, setUsername] = useState('');
@@ -51,6 +51,11 @@ function Login() {
 			<input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
 			<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
 			<button type="submit">Login</button>
+					{/* Signup link */}
+			<p>
+				Don't have an account?{' '}
+				<Link to="/UserSignup">Sign up here</Link>
+			</p>
 		</form>
 	);
 }

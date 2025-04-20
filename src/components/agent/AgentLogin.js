@@ -14,7 +14,9 @@ function AgentLogin() {
 		console.log("Sending login request with:", username, password);
 	
 		try {
-			const response = await fetch('http://127.0.0.1:8000/api/agent/agent-login/', {
+			const response = await fetch(
+				`${process.env.REACT_APP_API_BASE_URL}/api/agent/agent-login/`
+				, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ username, password }),
@@ -32,7 +34,13 @@ function AgentLogin() {
 				sessionStorage.setItem('userId', data.user_id);
 				sessionStorage.setItem('userName', data.name);
 				console.log("Before navigate() call");
-				navigate('/AgentDashboard', { state: { name: data.name, userId: data.user_id } });
+				navigate('/AgentDashboard', 
+					{ state: { 
+						name: data.name, 
+						userId: data.user_id,
+						user_credits_consumed : data.user_credits_consumed,
+						Total_credit_Point : data.Total_credit_Point
+					} });
 				console.log("After navigate() call");
 	
 			} else {
@@ -54,7 +62,7 @@ function AgentLogin() {
 			<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
 			<button type="submit"> Login</button>
 			<div className="text-center mt-3">
-				<p>New Registration? <Link to="/AgentSignup" className="text-primary">Click Here</Link></p>
+				<p className='text-dark'>New Registration? <Link to="/AgentSignup" className="text-primary">Click Here</Link></p>
 			</div>
 		</form>
 	);

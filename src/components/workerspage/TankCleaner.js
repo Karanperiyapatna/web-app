@@ -38,7 +38,7 @@ const TankCleaner = () => {
             };
 
             const response = await fetch(
-                `${process.env.API_BASE_URL}/api/search/labour-otherservice/`,{
+                `${process.env.REACT_APP_API_BASE_URL}/api/search/labour-otherservice/`,{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),

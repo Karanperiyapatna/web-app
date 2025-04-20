@@ -86,7 +86,7 @@ const Helper = () => {
 
 	const [searchCriteria, setSearchCriteria] = useState({
 		gender: "",
-		careLocation: "", // For city
+		city: "", // For city
 		area: "" // For area
 	});
 
@@ -94,7 +94,7 @@ const Helper = () => {
 	const handleSearchCheckLabour = async (e) => {
 		e.preventDefault();
 	
-		if (!searchCriteria.gender || !searchCriteria.careLocation || !searchCriteria.area || !searchCriteria.category) {
+		if (!searchCriteria.gender || !searchCriteria.city || !searchCriteria.area || !searchCriteria.category) {
 			alert("Please fill all fields before searching");
 			return;
 		}
@@ -107,7 +107,7 @@ const Helper = () => {
 			};
 	
 			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/search/labour-helper/`, {
+				`${process.env.REACT_APP_API_BASE_URL}/api/search/labour-helper/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -343,7 +343,7 @@ const Helper = () => {
 
 					{/* City Field */}
 					<label> City:
-						<select name="careLocation" value={searchCriteria.careLocation} onChange={handleFormChangeCheckLabour} required >
+						<select name="city" value={searchCriteria.city} onChange={handleFormChangeCheckLabour} required >
 							<option value="">Select City</option>
 							<option value="mysore">Mysore</option>
 							<option value="bangalore">Bangalore</option>
@@ -355,8 +355,8 @@ const Helper = () => {
 					<label> Area:
 						<select name="area" value={searchCriteria.area} onChange={handleFormChangeCheckLabour} required >
 							<option value="">Select Area</option>
-							{searchCriteria.careLocation &&
-								areaOptions[searchCriteria.careLocation.toLowerCase()].map((area) => (
+							{searchCriteria.city &&
+								areaOptions[searchCriteria.city.toLowerCase()].map((area) => (
 									<option key={area} value={area}>
 										{area}
 									</option>

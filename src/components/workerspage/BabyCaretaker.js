@@ -31,8 +31,10 @@ const BabyCaretaker = () => {
 		gender: "",
 		preferredCareTime : "",
 		baby_care_tasks :[],
+		preferredgender : "",
 		additionalNotes :"",
 		salaryOffered : "",
+		agreedToTerms: "",
 
 	});
 
@@ -101,14 +103,28 @@ const BabyCaretaker = () => {
 				...searchCriteria,
 				work_category: "babycaretaker" // Add work_category field with default value
 			};
+			console.log("API Base URL:", process.env.REACT_APP_API_BASE_URL);
 	
-			const response = await fetch(`${process.env.API_BASE_URL}/api/search/labour-babycaretaker/`, {
+			const response = await fetch(
+				`${process.env.REACT_APP_API_BASE_URL}/api/search/labour-babycaretaker/`,
+				{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
 			});
+			const responseText = await response.text();
+			console.log("Raw Response:", responseText);
 	
-			const data = await response.json();
+			// const data = await response.json();
+
+			let data;
+			try {
+				data = JSON.parse(responseText);
+			} catch (jsonError) {
+				console.error("Failed to parse JSON. Possibly an HTML error page was returned.", jsonError);
+				return;
+			}
+	
 	
 			if (response.ok) {
 				console.log("Search Results:", data);
@@ -125,8 +141,22 @@ const BabyCaretaker = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		if (!formData.agreedToTerms) {
+			alert("You must agree to the Terms and Conditions before submitting.");
+			return;
+		}
+
+		// Proceed with submission
+		console.log("Submitting form with data:", formData);
+
 		// Create a FormData object to handle file uploads
 		const data = new FormData();
+
+		// Clone the formData and convert agreedToTerms to 'agree' if checked
+		const modifiedFormData = {
+			...formData,
+			agreedToTerms: formData.agreedToTerms ? "agree" : "",
+		};
 		
 		// Append form fields to FormData
 		Object.keys(formData).forEach((key) => {
@@ -136,7 +166,7 @@ const BabyCaretaker = () => {
 
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/requirements/baby-caretaker/`, // Django API URL
+				`${process.env.REACT_APP_API_BASE_URL}/api/requirements/baby-caretaker/`, // Django API URL
 				data,
 				{
 					headers: {
@@ -301,6 +331,16 @@ const BabyCaretaker = () => {
 						value={formData.duration} onChange={handleFormChange} required />
 				</div>
 
+				<div className="mb-3">
+					<label className="form-label">Preferred Gender:</label>
+					<select className="form-select" name="preferredgender" value={formData.preferredgender} onChange={handleFormChange} required>
+						<option value="">Select</option>
+						<option value="female">Female</option>
+						<option value="male">Male</option>
+						<option value="any">Any</option>
+					</select>
+				</div>
+
 				<h4 className="text-secondary mt-4 mb-3">Baby Care Tasks</h4>
 				<div className="checkbox-container mb-3">
 					<div>
@@ -341,6 +381,28 @@ const BabyCaretaker = () => {
 						type="text" className="form-control" name="salaryOffered" placeholder="Per Month Ex. 1000rs/month" 
 						value={formData.salaryOffered} onChange={handleFormChange} title="Enter a valid salary e.g. 10000 rs/month" required />
 				</div>
+
+				
+				<div className="form-check mb-1 d-flex align-items-center">
+					<input 
+						className="form-check-input me-3"
+						type="checkbox"
+						name="agreedToTerms"
+						checked={formData.agreedToTerms}
+						onChange={(e) =>
+							setFormData((prevData) => ({
+								...prevData,
+								agreedToTerms: e.target.checked,
+							}))
+						}
+						id="termsCheck"
+						style={{ width: "18px", height: "18px" }}
+					/>
+					<label className="form-check-label" htmlFor="termsCheck" style={{ marginBottom: 10 }} >
+						I agree to the <a href="http://www.digilaboursolutions.com.s3-website.ap-south-1.amazonaws.com/terms-conditions.html" target="_blank">Terms and Conditions</a>
+					</label>
+				</div>
+
 
 				<button type="submit" className="btn btn-primary w-100 mt-4">Submit</button>
 					
