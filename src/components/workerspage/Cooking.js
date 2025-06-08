@@ -47,7 +47,7 @@ const Cooking = () => {
 	
 	const [searchCriteria, setSearchCriteria] = useState({
 		gender: "",
-		careLocation: "", // For city
+		city: "", // For city
 		area: "" // For area
 	});
 
@@ -57,6 +57,14 @@ const Cooking = () => {
 		   ...prevData,
 		   [name]: value,
 		}));
+
+		// Added this part of code - issue with the city undefined
+		if (name === "city") {
+			setSearchCriteria((prev) => ({
+				...prev,
+				city: value,
+			}));
+		}
 	};
 	 
 
@@ -94,6 +102,7 @@ const Cooking = () => {
 	const handleSearchCheckLabour = async (e) => {
 		e.preventDefault();
 	
+		console.log("Gender:", searchCriteria.gender, "City:", searchCriteria.city, "Area:", searchCriteria.area);
 		if (!searchCriteria.gender || !searchCriteria.city || !searchCriteria.area) {
 			alert("Please fill all fields before searching");
 			return;
@@ -104,15 +113,23 @@ const Cooking = () => {
 				...searchCriteria,
 				work_category: "cooking" // Add work_category field with default value
 			};
+			console.log("API Base URL:", process.env.REACT_APP_API_BASE_URL);
 	
-			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/search/labour-cook/`, {
+			const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/search/labour-babycaretaker/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
 			});
+			const responseText = await response.text();
+			console.log("Raw Response:", responseText);
 	
-			const data = await response.json();
+			let data;
+			try {
+				data = JSON.parse(responseText);
+			} catch (jsonError) {
+				console.error("Failed to parse JSON. Possibly an HTML error page was returned.", jsonError);
+				return;
+			}
 	
 			if (response.ok) {
 				console.log("Search Results:", data);
@@ -127,10 +144,11 @@ const Cooking = () => {
 	
   
 	// Create a FormData object to handle file uploads
-	const data = new FormData();
+	
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const data = new FormData();
 	
 		// Append form fields to FormData
 		Object.keys(formData).forEach((key) => {
@@ -139,7 +157,7 @@ const Cooking = () => {
 	
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/requirements/cooking/`,
+				`${process.env.REACT_APP_API_BASE_URL}/api/requirements/cooking/`,
 				data,
 				{
 					headers: {
@@ -386,7 +404,7 @@ const Cooking = () => {
 
 						<div className="mb-3">
 							<label className="form-label">City:</label>
-							<select name="careLocation" className="form-select" value={searchCriteria.careLocation} onChange={handleFormChangeCheckLabour} required>
+							<select name="city" className="form-select" value={searchCriteria.city} onChange={handleFormChangeCheckLabour} required>
 								<option value="">Select City</option>
 								<option value="mysore">Mysore</option>
 								<option value="bangalore">Bangalore</option>
@@ -398,8 +416,8 @@ const Cooking = () => {
 							<label className="form-label">Area:</label>
 							<select name="area" className="form-select" value={searchCriteria.area} onChange={handleFormChangeCheckLabour} required>
 								<option value="">Select Area</option>
-								{searchCriteria.careLocation &&
-									areaOptions[searchCriteria.careLocation.toLowerCase()].map((area) => (
+								{searchCriteria.city &&
+									areaOptions[searchCriteria.city.toLowerCase()].map((area) => (
 										<option key={area} value={area}>
 											{area}
 										</option>

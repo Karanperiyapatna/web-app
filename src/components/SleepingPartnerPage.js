@@ -42,7 +42,7 @@ function SleepingRegistrationPage() {
 		Object.entries(formData).forEach(([key, value]) => form.append(key, value));
 		try {
 			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/dormant/partner-signup/`, {
+				`${process.env.REACT_APP_API_BASE_URL}/api/dormant/partner-signup/`, {
 				method: "POST",
 				body: form,
 			});
@@ -70,7 +70,7 @@ function SleepingRegistrationPage() {
 		e.preventDefault();
 		try {
 			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/agent/agent-login/`, {
+				`${process.env.REACT_APP_API_BASE_URL}/api/agent/agent-login/`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(loginData),

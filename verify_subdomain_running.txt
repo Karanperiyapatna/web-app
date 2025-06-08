@@ -1,0 +1,115 @@
+To verify that your subdomain (e.g., app.laboursolutions.com) is running properly with NGINX, and to check which port it is serving, follow these steps:
+
+✅ 1. Check if NGINX is Running
+bash
+Copy
+Edit
+sudo systemctl status nginx
+You should see active (running). If not, start it:
+
+bash
+Copy
+Edit
+sudo systemctl start nginx
+sudo systemctl enable nginx
+🔎 2. Verify Subdomain Configuration (Port 80)
+Run:
+
+bash
+Copy
+Edit
+sudo netstat -tulnp | grep nginx
+or (if netstat not installed):
+
+bash
+Copy
+Edit
+sudo lsof -i -P -n | grep LISTEN | grep nginx
+This should show:
+
+arduino
+Copy
+Edit
+nginx: master process   ... LISTEN ... :80
+Which means NGINX is listening on port 80 (HTTP).
+
+🌐 3. Check DNS Resolution for Subdomain
+On the server or your local machine:
+
+bash
+Copy
+Edit
+nslookup app.laboursolutions.com
+You should see the correct public IP of your EC2 instance. If not, the DNS is not configured correctly.
+
+🔍 4. Check NGINX Virtual Host for Subdomain
+Ensure you have a config file like:
+
+bash
+Copy
+Edit
+sudo cat /etc/nginx/sites-available/app.laboursolutions.com
+You should see:
+
+nginx
+Copy
+Edit
+server {
+    listen 80;
+    server_name app.laboursolutions.com;
+
+    root /home/ubuntu/web-app/build;
+    index index.html;
+    ...
+}
+And it must be enabled:
+
+bash
+Copy
+Edit
+ls -l /etc/nginx/sites-enabled/
+Should show a symlink:
+
+swift
+Copy
+Edit
+/etc/nginx/sites-enabled/app.laboursolutions.com -> /etc/nginx/sites-available/app.laboursolutions.com
+If not:
+
+bash
+Copy
+Edit
+sudo ln -s /etc/nginx/sites-available/app.laboursolutions.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+🧪 5. Test Subdomain in Browser
+Open:
+
+arduino
+Copy
+Edit
+http://app.laboursolutions.com
+If it shows the React app, it’s working.
+
+If not, check:
+
+bash
+Copy
+Edit
+sudo tail -n 50 /var/log/nginx/app_error.log
+Or general NGINX log:
+
+bash
+Copy
+Edit
+sudo tail -n 50 /var/log/nginx/error.log
+✅ Summary Checklist
+Item	Command	Expected Output
+NGINX is running	sudo systemctl status nginx	active (running)
+Listening on port 80	`netstat -tulnp	grep nginx`
+DNS resolution works	nslookup app.laboursolutions.com	IP of your EC2 instance
+Virtual host is active	cat /etc/nginx/sites-available/app.laboursolutions.com	Shows config with listen 80;
+Symlink exists in sites-enabled	ls -l /etc/nginx/sites-enabled/	Shows symlink to your subdomain file
+
+
+

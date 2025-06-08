@@ -3,20 +3,23 @@ import { useNavigate, useLocation } from "react-router-dom";
 import '../styles/LabourList.css'; 
 import defaultImage from "../../src/images/profileicon.png";
 
+// ... import statements remain the same
 
 const LabourList = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { labours, work_category } = location.state || { labours: [], work_category: "N/A" }; // Fallback in case no data is passed
+	const { labours, work_category } = location.state || { labours: [], work_category: "N/A" };
 
 	const [popupView, setPopupView] = useState(null);
-	const [userDetails, setUserDetails] = useState({  // Fixed here
+	const [selectedLabour, setSelectedLabour] = useState(null);
+	const [userDetails, setUserDetails] = useState({
 		username: "",
 		mobile: "",
-		email: ""
+		email: "",
+		agreedToTerms: false,
 	});
 
-	const handleUserDetailsChange = (e) => { // Fixed here
+	const handleUserDetailsChange = (e) => {
 		const { name, value } = e.target;
 		setUserDetails((prev) => ({
 			...prev,
@@ -24,33 +27,18 @@ const LabourList = () => {
 		}));
 	};
 
-	const handlePay = async () => {
-		try {
-			const requestData = {
-				...userDetails,
-				work_category: work_category 
-			};
-			const response = await fetch(
-				`${process.env.API_BASE_URL}/api/storeCustomerData/`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(requestData)
-			});
-	
-			if (response.ok) {
-				alert("Customer data stored successfully!");
-				navigate("/payment"); // Navigate to payment page
-			} else {
-				alert("Failed to store customer data.");
-			}
-		} catch (error) {
-			console.error("Error:", error);
-			alert("Something went wrong.");
+	const generateOrderId = () => {
+		const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		let result = '';
+		for (let i = 0; i < 6; i++) {
+			result += characters.charAt(Math.floor(Math.random() * characters.length));
 		}
+		return result;
 	};
-	
+
+	const price = 50;
+	const discount = 50;
+	const final_price = price - discount;
 
 	return (
 		<div className="labour-list">
@@ -69,21 +57,23 @@ const LabourList = () => {
 								<h3>{labour.name}</h3>
 								<p><strong>Gender:</strong> {labour.gender}</p>
 								<p><strong>Labour Name:</strong> {labour.labour_name}</p>
-								<p><strong>Service Category:</strong> {labour.work_category || work_category}</p> 
-								{/* Use labour.work_category if available, otherwise fallback to passed work_category */}
-
+								<p><strong>Service Category:</strong> {labour.work_category || work_category}</p>
 								<p><strong>Experience:</strong> {labour.experience} </p>
-								<button onClick={() => setPopupView("userDetails")}>Get Mobile Number</button>
+								<button onClick={() => {
+									setSelectedLabour(labour);
+									setPopupView("userDetails");
+								}}>
+									Get Mobile Number
+								</button>
 							</div>
 						</div>
 					))}
 				</div>
 			) : (
-				<p>No labours available</p>
+				<p className="text-black">No labours available</p>
 			)}
 			<button className="back-button" onClick={() => navigate("/")}>Back to Search</button>
 
-			{/* Popup for User Details */}
 			{popupView === "userDetails" && (
 				<div className="popup-overlay">
 					<div className="popup-box">
@@ -98,23 +88,50 @@ const LabourList = () => {
 						<label> Email:
 							<input type="text" name="email" value={userDetails.email} onChange={handleUserDetailsChange} required />
 						</label>
-						<button onClick={() => setPopupView("subscription")}>Next</button>
-						<button onClick={() => setPopupView(null)}>Cancel</button>
-					</div>
-				</div>
-			)}
+						<div className="form-check mb-1 d-flex align-items-center">
+							<input 
+								className="form-check-input me-3"
+								type="checkbox"
+								name="agreedToTerms"
+								checked={userDetails.agreedToTerms}
+								onChange={(e) =>
+									setUserDetails((prevData) => ({
+										...prevData,
+										agreedToTerms: e.target.checked,
+									}))
+								}
+								id="termsCheck"
+								style={{ width: "18px", height: "18px" }}
+							/>
+							<label className="form-check-label" htmlFor="termsCheck" style={{ marginBottom: 10 }} >
+								I agree to the <a href="http://www.digilaboursolutions.com.s3-website.ap-south-1.amazonaws.com/terms-conditions.html" target="_blank" rel="noreferrer">Terms and Conditions</a>
+							</label>
+						</div>
 
-			{/* Popup for Subscription Details */}
-			{popupView === "subscription" && (
-				<div className="popup-overlay">
-					<div className="popup-box">
-						<h3>Subscription Details</h3>
-						<p>Price: ₹50</p>
-						<p>Discount: ₹50</p>
-						<p>Final Amount: ₹0</p>
-						<button onClick={handlePay} className="pay-button">
-							Pay
-						</button>
+						<button onClick={() => {
+							const order_id = generateOrderId();
+							navigate("/payment", {
+								state: {
+									order_id,
+									userDetails,
+									selectedLabour: {
+										_id : selectedLabour?._id,
+										labour_name: selectedLabour?.labour_name,
+										labour_id: selectedLabour?.labour_id,
+										labour_name: selectedLabour?.labour_name,
+										labour_mobile: selectedLabour?.mobile_number,
+										register_via: selectedLabour?.register_via,
+										referred_by: selectedLabour?.referred_by
+
+									},
+									work_category,
+									price,
+									discount,
+									final_price
+								}
+							});
+						}}>Next</button>
+
 						<button onClick={() => setPopupView(null)}>Cancel</button>
 					</div>
 				</div>

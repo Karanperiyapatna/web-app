@@ -33,13 +33,42 @@ const EmpBabyCaretaker = () => {
 		hourlyRate : "",
 		experience :"",
 		refer :"",
+		agentId: "",
+		labourId: "",
 		workdescription: "",
+		agreedToTerms: "",
 
 	});
 
+	// const handleFormChange = (e) => {
+	// 	const { name, value } = e.target;
+	// 	setFormData({ ...formData, [name]: value });
+	// };
 	const handleFormChange = (e) => {
 		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+			// Clear IDs if refer changes
+			...(name === "refer" ? { agentId: "", labourId: "" } : {})
+		}));
+	};
+
+	// const handleExtraIdChange = (e) => {
+	// 	setFormData((prev) => ({
+	// 	  ...prev,
+	// 	  extraId: e.target.value,
+	// 	}));
+	// };
+	
+
+	const handleExtraIdChange = (e) => {
+		const value = e.target.value;
+		if (formData.refer === "Via Agent") {
+			setFormData((prevData) => ({ ...prevData, agentId: value }));
+		} else if (formData.refer === "Via Labour") {
+			setFormData((prevData) => ({ ...prevData, labourId: value }));
+		}
 	};
 
 	const handleFileUpload = (e) => {
@@ -53,13 +82,28 @@ const EmpBabyCaretaker = () => {
 	
 		// Create a FormData object to handle file uploads
 		const data = new FormData();
+			// Add all general fields
+		Object.keys(formData).forEach((key) => {
+			if (!['agentId', 'labourId', 'refer'].includes(key)) {
+				data.append(key, formData[key]);
+			}
+		});
+
+		// Append reference ID based on refer method
+		if (formData.refer === "Via Agent" && formData.agentId) {
+			data.append("referred_via_agent", formData.agentId);
+		} else if (formData.refer === "Via Labour" && formData.labourId) {
+			data.append("referred_via_labour", formData.labourId);
+		}
+
+
 		for (const key in formData) {
 			data.append(key,  formData[key]);
 		}
 	
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/employees/baby-caretaker/`,
+				`${process.env.REACT_APP_API_BASE_URL}/api/employees/baby-caretaker/`,
 				data,
 				{
 					headers: {
@@ -102,13 +146,7 @@ const EmpBabyCaretaker = () => {
 		});
 	};
 
-	const handleExtraIdChange = (e) => {
-		setFormData((prev) => ({
-		  ...prev,
-		  extraId: e.target.value,
-		}));
-	};
-	
+
 
 
 	return (
@@ -257,26 +295,65 @@ const EmpBabyCaretaker = () => {
 			</label>
 			<label>
 				Registering Via:
-				<select name="refer" value={formData.refer} onChange={handleFormChange} required >
+				<select name="refer" value={formData.refer} onChange={handleFormChange} required>
 					<option value="">Select</option>
-					<option value="direct">Direct</option>
-					<option value="reference">Reference</option>
+					<option value="Direct">Direct</option>
+					<option value="Via Agent">Via Agent</option>
+					<option value="Via Labour">Via Labour</option>
 				</select>
 			</label>
-			{/* Show input box if "Agent" or "Demant" is selected */}
-			{formData.refer === "reference" && (
-			<label>
-				Reference ID:
-				<input type="text" name="extraId" value={formData.extraId} onChange={handleExtraIdChange} required />
+
+			{/* Show input only if not Direct */}
+			{formData.refer === "Via Agent" && (
+				<label>
+					Agent ID:
+					<input
+						type="text"
+						name="extraId"
+						value={formData.agentId}
+						onChange={handleExtraIdChange}
+						required
+					/>
 				</label>
 			)}
 
-
+			{formData.refer === "Via Labour" && (
+				<label>
+					Labour ID:
+					<input
+						type="text"
+						name="extraId"
+						value={formData.labourId}
+						onChange={handleExtraIdChange}
+						required
+					/>
+				</label>
+			)}
 
 			<label>
 				Work Specialization:
 				<textarea name="workdescription" placeholder="Enter your work description..." value={formData.workdescription} onChange={handleFormChange} />
 			</label>
+
+			<div className="form-check mb-1 d-flex align-items-center">
+				<input 
+					className="form-check-input me-3"
+					type="checkbox"
+					name="agreedToTerms"
+					checked={formData.agreedToTerms}
+					onChange={(e) =>
+						setFormData((prevData) => ({
+							...prevData,
+							agreedToTerms: e.target.checked,
+						}))
+					}
+					id="termsCheck"
+					style={{ width: "18px", height: "18px" }}
+				/>
+				<label className="form-check-label" htmlFor="termsCheck" style={{ marginBottom: 10 }} >
+					I agree to the <a href="http://www.digilaboursolutions.com.s3-website.ap-south-1.amazonaws.com/terms-conditions.html" target="_blank">Terms and Conditions</a>
+				</label>
+			</div>
 
 			<button type="submit" className="submit-button">
 				Submit

@@ -29,6 +29,7 @@ import UserDashboard from './components/user/UserDashboard';
 
 import LabourPage from './components/LabourPage';
 import LabourLogin from './components/labour/LabourLogin';
+
 import LabourSignup from './components/labour/LabourSignup';
 import LabourDashboard from './components/labour/LabourDashboard';
 import LabourList from "./components/LabourList";
@@ -40,9 +41,12 @@ import AgentRegistrationPage from './components/AgentRegistrationPage';
 
 import LegalInformation from './components/LegalInformation';
 import Subscription from './components/Subscription';
+import Payment from './components/Payment';
+import PaymentProcess from './components/PaymentProcess';
+import PaymentSubscriptionProcess from './components/PaymentSubscriptionProcess';
+
+
 import Chatbot from './components/Chatbot';
-
-
 
 import SleepingPartnerPage from './components/SleepingPartnerPage';
 import OtherServices from './components/OtherServices';
@@ -621,7 +625,7 @@ function App() {
 					<Route path="/contact_us" element={<ContactUs />} />
 					<Route path="/LabourPage" element={<LabourPage />} />
 					<Route path="/LegalInformation" element={<LegalInformation />} />
-					<Route path="/LabourLogin" element={<LabourLogin />} />
+					<Route path="/labour_login" element={<LabourLogin />} />
 					<Route path="/LabourSignup" element={<LabourSignup />} />
 					<Route path="/LabourDashboard" element={<LabourDashboard />} />
 					<Route path="/userpage" element={<Userpage />} />
@@ -671,7 +675,11 @@ function App() {
 					<Route path="/underMaintenance" element={<UnderMaintenance />} />
 					
 
-					{/* <Route path="/payment" element={<Payment />} /> */}
+					<Route path="/payment" element={<Payment />} />
+					<Route path="/payment_process" element={<PaymentProcess />} />
+					<Route path="/PaymentSubscriptionProcess" element={<PaymentSubscriptionProcess />} />
+					
+
 				</Routes>
 
 

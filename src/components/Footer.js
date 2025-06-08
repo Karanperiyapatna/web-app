@@ -17,7 +17,7 @@ function Footer() {
 		{ name: "About Us",  href: "https://stwebsuhas.z13.web.core.windows.net/about.html"  },
 		{ name: "Contact Us", link: "/contact_us" },
 		{ name: "Pricing", link: "/" },
-		{ name: "Labour Page", link: "/labour" },
+		{ name: "Labour Page", link: "/emp_Otherservices" },
 		{ name: "Agent Page", link: "/AgentLogin" },
 		{ name: "Demand Page", link: "/demand" },
 		{ name: "FAQ", link: "/faq" }

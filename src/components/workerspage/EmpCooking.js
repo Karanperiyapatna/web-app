@@ -71,7 +71,7 @@ const EmpCooking = () => {
 	
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/employees/labour-cooking/`,
+				`${process.env.REACT_APP_API_BASE_URL}/api/employees/labour-cooking/`,
 				data,
 				{
 					headers: {

@@ -77,7 +77,7 @@ const EmpHelper = () => {
 
 		try {
 			const response = await axios.post(
-				`${process.env.API_BASE_URL}/api/employees/helper/`, data, {
+				`${process.env.REACT_APP_API_BASE_URL}/api/employees/helper/`, data, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},

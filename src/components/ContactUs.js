@@ -10,7 +10,7 @@ function ContactUs() {
 	const handleContact = async (e) => {
 		e.preventDefault();
 		const response = await fetch(
-			`${process.env.API_BASE_URL}/contact_us`, {
+			`${process.env.REACT_APP_API_BASE_URL}/contact_us`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ name, mobile, email, message }),

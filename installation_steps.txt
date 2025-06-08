@@ -1,0 +1,221 @@
+✅ 1. React App Build
+If not yet done, SSH into your EC2 instance and build your React app.
+
+bash
+Copy
+Edit
+cd /var/www/react-app  # or your project directory
+npm install
+npm run build
+This will generate a build/ folder containing your production-ready React app.
+
+✅ 2. Install & Configure NGINX
+Install NGINX if it's not already installed:
+
+bash
+Copy
+Edit
+sudo apt update
+sudo apt install nginx -y
+🔧 Configure NGINX for app.domain.com
+Create a config file for your subdomain:
+
+bash
+Copy
+Edit
+sudo nano /etc/nginx/sites-available/app.domain.com
+Add the following content:
+
+nginx
+Copy
+Edit
+server {
+    listen 80;
+    server_name app.domain.com;
+
+    root /var/www/react-app/build;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    access_log /var/log/nginx/app_access.log;
+    error_log /var/log/nginx/app_error.log;
+}
+Enable the site:
+
+bash
+Copy
+Edit
+sudo ln -s /etc/nginx/sites-available/app.domain.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+✅ 3. DNS Configuration (Subdomain)
+Go to your domain registrar's dashboard (e.g., GoDaddy, Namecheap, Cloudflare) and add a DNS A record:
+
+Type	Name	Value (IP)
+A	app	172.31.1.236
+
+It may take up to a few minutes for DNS propagation.
+
+✅ 4. SSL with Let's Encrypt (Optional but Recommended)
+Install Certbot:
+
+bash
+Copy
+Edit
+sudo apt install certbot python3-certbot-nginx -y
+Issue an SSL certificate:
+
+bash
+Copy
+Edit
+sudo certbot --nginx -d app.domain.com
+Auto-renewal check:
+
+bash
+Copy
+Edit
+sudo certbot renew --dry-run
+✅ 5. Deploy Updated Code
+To update the code:
+
+bash
+Copy
+Edit
+# SSH into your EC2
+cd /var/www/react-app
+git pull origin main  # or fetch latest code
+npm install
+npm run build
+sudo systemctl reload nginx
+✅ 6. Log Management
+NGINX Logs:
+
+Access log: /var/log/nginx/app_access.log
+
+Error log: /var/log/nginx/app_error.log
+
+You can use:
+
+bash
+Copy
+Edit
+tail -f /var/log/nginx/app_access.log
+Or rotate logs using logrotate:
+
+Create a logrotate config:
+
+bash
+Copy
+Edit
+sudo nano /etc/logrotate.d/nginx-react-app
+txt
+Copy
+Edit
+/var/log/nginx/app_access.log
+/var/log/nginx/app_error.log {
+    daily
+    missingok
+    rotate 14
+    compress
+    delaycompress
+    notifempty
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        [ -s /run/nginx.pid ] && kill -USR1 `cat /run/nginx.pid`
+    endscript
+}
+✅ 7. (Optional) Setup PM2 for Backend (if any)
+If you're using Flask/Node backend, manage it with PM2:
+
+bash
+Copy
+Edit
+npm install pm2@latest -g
+pm2 start server.js --name backend-app
+pm2 save
+pm2 startup
+✅ 8. Security Recommendations
+Use UFW to allow only necessary ports:
+
+bash
+Copy
+Edit
+sudo ufw allow OpenSSH
+sudo ufw allow 'Nginx Full'
+sudo ufw enable
+Keep system updated:
+
+bash
+Copy
+Edit
+sudo apt update && sudo apt upgrade -y
+✅ Summary
+Step	Action
+1	Build React app
+2	Install & configure NGINX
+3	Create DNS A record for app.domain.com
+4	Set up SSL via Let’s Encrypt
+5	Pull updated code and rebuild
+6	Check and rotate logs
+7	Use PM2 for backend (optional)
+8	Secure EC2 instance
+
+
+
+
+
+2. 📝 NGINX Config for app.laboursolutions.com
+
+sudo nano /etc/nginx/sites-available/app.laboursolutions.com
+
+Use this configuration:
+
+server {
+    listen 80;
+    server_name app.digilaboursolutions.com;
+
+    root /home/ubuntu/web-app/build;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://3.108.250.112:8000/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    access_log /var/log/nginx/app_access.log;
+    error_log /var/log/nginx/app_error.log;
+}
+
+
+
+3. 🔗 Enable the Site & Reload NGINX
+
+sudo ln -s /etc/nginx/sites-available/app.laboursolutions.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
+
+4. 🔐 Set Correct File Permissions
+Give NGINX read access:
+
+sudo chown -R www-data:www-data /home/ubuntu/web-app/build
+sudo chmod -R 755 /home/ubuntu/web-app/build
+
+
+📁 Logs
+
+# NGINX access and error logs
+tail -f /var/log/nginx/app_access.log
+tail -f /var/log/nginx/app_error.log
