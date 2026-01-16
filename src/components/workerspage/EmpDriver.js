@@ -52,10 +52,11 @@ const EmpDriver = () => {
 	};
 
 
-	const data = new FormData();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		const data = new FormData();
 
 		// Combine user details and form data into one payload
 		const completeData = { ...formData, ...userDetails };
