@@ -350,7 +350,7 @@ const EmpBabyCaretaker = () => {
 					style={{ width: "18px", height: "18px" }}
 				/>
 				<label className="form-check-label" htmlFor="termsCheck" style={{ marginBottom: 10 }} >
-					I agree to the <a href="http://www.digilaboursolutions.com.s3-website.ap-south-1.amazonaws.com/terms-conditions.html" target="_blank">Terms and Conditions</a>
+					I agree to the <a href="http://www.digilaboursolutions.com.s3-website.ap-south-1.amazonaws.com/terms-conditions.html" target="_blank" rel="noreferrer">Terms and Conditions</a>
 				</label>
 			</div>
 
