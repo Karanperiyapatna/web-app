@@ -237,8 +237,7 @@ function HomePageContent() {
 												src={babycaretaker}
 												alt="Baby Caretaker"
 												style={{
-												width: '175px', // Set the width of the image
-												height: '175px', // Set the height of the image
+												width: '175px', height: '175px', 
 												objectFit: 'cover', // Ensures the image fits within the defined dimensions
 												borderRadius: '10px', // Add rounded corners (optional)
 												}}
@@ -256,8 +255,9 @@ function HomePageContent() {
 										<li><i class="icofont icofont-ui-check"></i>Infant & Toddler Care</li>
 										<li><i class="icofont icofont-ui-check"></i>Feeding & Meal Preparation</li>
 										<li><i class="icofont icofont-ui-check"></i>Diaper Changing & Hygiene</li>
-										<li class="cross"><i class="icofont icofont-ui-close"></i>Overnight Babysitting</li>
-										<li class="cross"><i class="icofont icofont-ui-close"></i>Special Needs Childcare</li>
+										<li><i class="icofont icofont-ui-close"></i>Overnight Babysitting</li>
+										<li><i class="icofont icofont-ui-close"></i>Special Needs Childcare</li>
+										{/* <li class="cross"><i class="icofont icofont-ui-close"></i>Special Needs Childcare</li>   # Contains unmark button */}
 									</ul>							
 									<div className="table-bottom">
 										<a
@@ -279,6 +279,9 @@ function HomePageContent() {
 									</div>
 									{/* <!-- Table Bottom --> */}
 								</div>
+
+
+								
 								</div>
 								{/* <!-- End Single Table--> */}
 
@@ -360,9 +363,9 @@ function HomePageContent() {
 										<ul class="table-list">
 											<li><i class="icofont icofont-ui-check"></i>Trained Elder Caregivers</li>
 											<li><i class="icofont icofont-ui-check"></i>24/7 Home Care Services</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Physical Therapy Assistants</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Specialized Dementia Care</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Certified Nursing Assistants</li>
+											<li><i class="icofont icofont-ui-close"></i>Physical Therapy Assistants</li>
+											<li><i class="icofont icofont-ui-close"></i>Specialized Dementia Care</li>
+											<li><i class="icofont icofont-ui-close"></i>Certified Nursing Assistants</li>
 										</ul>
 										<div className="table-bottom">
 											<a className="btn"
@@ -418,8 +421,8 @@ function HomePageContent() {
 											<li><i class="icofont icofont-ui-check"></i>Residential & Commercial Cleaning</li>
 											<li><i class="icofont icofont-ui-check"></i>Laundry & Ironing Services</li>
 											<li><i class="icofont icofont-ui-check"></i>Deep Cleaning & Sanitization</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Event Cleanup</li>
-											<li class="cross"><i class="icofont icofont-ui-close"></i>Pest Control Services</li>
+											<li><i class="icofont icofont-ui-close"></i>Event Cleanup</li>
+											<li><i class="icofont icofont-ui-close"></i>Pest Control Services</li>
 										</ul>
 										<div className="table-bottom">
 											<a className="btn"

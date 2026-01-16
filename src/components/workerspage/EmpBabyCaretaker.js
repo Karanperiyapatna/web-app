@@ -21,8 +21,8 @@ const EmpBabyCaretaker = () => {
 		gender: "",
 		age: "",
 		address: "",
-		photo: null,
-		identityCard: null,
+		photo: "",
+		identityCard: "",
 		username: "",
 		password :"",
 		city: "",
@@ -61,7 +61,6 @@ const EmpBabyCaretaker = () => {
 	// 	}));
 	// };
 	
-
 	const handleExtraIdChange = (e) => {
 		const value = e.target.value;
 		if (formData.refer === "Via Agent") {
@@ -70,12 +69,6 @@ const EmpBabyCaretaker = () => {
 			setFormData((prevData) => ({ ...prevData, labourId: value }));
 		}
 	};
-
-	const handleFileUpload = (e) => {
-		const { name, files } = e.target;
-		setFormData({ ...formData, [name]: files[0] });
-	};
-
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -146,6 +139,11 @@ const EmpBabyCaretaker = () => {
 		});
 	};
 
+	
+	const handlePhotoUpload = (e) => {
+		const { name, files } = e.target;
+		setFormData({ ...formData, [name]: files[0] });
+	};
 
 
 
@@ -179,14 +177,15 @@ const EmpBabyCaretaker = () => {
 			<label> Address:
 						 <input type="text" name="address" value={formData.address} onChange={handleFormChange} required />
 			</label>
+
 			<div>
-				<label> Upload Photo:
-					<input type="file" name="photo" accept="image/*" onChange={handleFileUpload} required />
+				<label> Photo:
+					<input type="file" name="photo" accept="image/*" onChange={handlePhotoUpload} required />
 				</label>
 			</div>
 			<div>
 				<label> Identity Card:
-					<input type="file" name="identityCard" accept="image/*" onChange={handleFileUpload} required />
+					<input type="file" name="identityCard" accept="image/*" onChange={handlePhotoUpload} required />
 				</label>
 			</div>
 
