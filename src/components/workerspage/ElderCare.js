@@ -39,12 +39,6 @@ const ElderCaretaker = () => {
 
 	});
 
-	const handleAccountTypeChange = (e) => {
-        setAccountVia(e.target.value);
-        setAgentOrDemandCode(""); // Reset sub-field when type changes
-    };
-
-
 	// Handle form input changes
 	const handleFormChange = (e) => {
 		const { name, value } = e.target;
