@@ -94,18 +94,6 @@ const EmpOtherservice = () => {
 		}
 	};
 
-	
-	const handleCheckboxChange = (category) => (e) => {
-		const { value, checked } = e.target;
-		setFormData((prevData) => {
-			const updatedValues = checked
-				? [...(prevData[category] || []), value]  // Fallback to empty array
-				: (prevData[category] || []).filter((item) => item !== value);
-			
-			return { ...prevData, [category]: updatedValues };
-		});
-	};
-
 	return (
 
 		<form className="requirement-form" onSubmit={handleSubmit}>
