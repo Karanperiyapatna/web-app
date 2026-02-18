@@ -3,7 +3,6 @@ import axios from "axios";
 import "../../styles/EmpBabyCaretaker.css";
 // import "../../styles/OtherServices.css";
 import { useNavigate } from "react-router-dom";
-import OtherServices from "../OtherServices";
 
 const EmpOtherservice = () => {
 
@@ -63,7 +62,6 @@ const EmpOtherservice = () => {
 	
 		// Combine user details and form data into one payload
 		const completeData = { ...formData, ...userDetails };
-	
 
 		for (const key in completeData) {
 			data.append(key, completeData[key]);
