@@ -1,3 +1,6 @@
+// This component provides an overview of the company, including its mission, vision, and how it works. It also includes detailed sections about the various services offered by the company, such as baby care, industry help, cleaning, painting, construction assistance, and gardening. Each section is accompanied by relevant images to enhance the visual appeal and provide a better understanding of the services. The component also handles smooth scrolling to specific sections based on the URL hash, allowing users to easily navigate to the information they are interested in.
+
+
 import React from "react";
 import "../styles/AboutUs.css";
 

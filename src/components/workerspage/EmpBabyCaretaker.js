@@ -1,3 +1,5 @@
+// This component renders a registration form for baby caretakers. It collects personal details, work preferences, and other relevant information from the user. The form data is managed using React's useState hook, and upon submission, it sends the data to the backend API using axios. The component also handles file uploads for photos and identity cards, and it includes checkboxes for handling work and availability. Depending on the user's selection for how they are registering (directly, via agent, or via labour), it conditionally renders additional input fields for agent or labour IDs. After successful submission, it navigates the user to the home page with the search results.
+
 import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/EmpBabyCaretaker.css";
