@@ -12,3 +12,8 @@ git add .
 git commit -m "Update EmpOtherservice.js with latest changes"
 git push origin main
 
+
+Pull from Github to Server
+
+git status
+git pull origin main
