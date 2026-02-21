@@ -1,0 +1,14 @@
+Push from Server to GitHub
+
+git add .
+git commit -m "Update server code with latest changes"
+git push origin main
+
+Quick tip: If you get an error like “Updates were rejected because the remote contains work that you do not have locally”, run:
+git pull origin main --rebase
+
+If find any modified and added new files or changes then 
+git add .
+git commit -m "Update EmpOtherservice.js with latest changes"
+git push origin main
+
